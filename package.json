@@ -1,7 +1,7 @@
 {
   "name": "wvs",
   "version": "1.0.0",
-  "description": "web visualizer system",
+  "description": "Web Visualization Studio",
   "main": "index.js",
   "scripts": {
     "start": "npx parcel src/index.html",
