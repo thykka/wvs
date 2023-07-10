@@ -1,13 +1,20 @@
 import Engine from './modules/engine.js';
-import { initAudio, updateAudio } from './modules/audio.js';
+import { createAudioPlayer, initAudio, updateAudio } from './modules/audio.js';
+
+import demoSong from 'url:../media/N2-1.mp3';
 
 const init = async (canvas) => {
   const width = innerWidth * .816;
   const height = innerHeight * .816;
   canvas.width = width;
   canvas.height = height;
+
+  const params = new URLSearchParams(location.search);
+  const songUrl = params.get('mp3');
+  const useMic = params.get('mic');
+  const player = useMic ? null : createAudioPlayer({ src: songUrl ?? demoSong });
   return {
-    audio: await initAudio()
+    audio: await initAudio({ player })
   };
 };
 
