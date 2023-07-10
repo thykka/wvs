@@ -5,14 +5,17 @@ class Engine {
     this.init = init ?? this._init;
     this.update = update ?? this._update;
     this.draw = draw ?? this._draw;
-    this.init(canvas).then(initialState => {
-      console.log({initialState});
-      this.tick({
-        ...initialState,
-        canvas,
-        ctx: canvas.getContext('2d')
+    try {
+      this.init(canvas).then(initialState => {
+        this.tick({
+          ...initialState,
+          canvas,
+          ctx: canvas.getContext('2d')
+        });
       });
-    });
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   async _init(canvas) {
@@ -26,9 +29,13 @@ class Engine {
   _draw(state = {}) {}
 
   async tick(currentState) {
-    const newState = await this.update(currentState);
-    this.draw(newState);
-    requestAnimationFrame(() => this.tick(newState));
+    try {
+      const newState = await this.update(currentState);
+      this.draw(newState);
+      requestAnimationFrame(() => this.tick(newState));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   createCanvas(container = document.body) {
