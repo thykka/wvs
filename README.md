@@ -31,5 +31,7 @@ $ npm start
 
 ## Tips
 
+- Add `?mic` to the url to enable microphone input
+- Add `?mp3=http://example.com/song.mp3` to choose a song to play
 - use `src/index.js` as a starting point for your own visualization
 - wvs uses a bundler called [Parcel](https://parceljs.org/)
