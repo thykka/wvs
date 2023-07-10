@@ -30,12 +30,9 @@ const draw = (state) => {
 
   ctx.fillStyle = 'rgba(200, 200, 255, 0.8)';
 
-  //testataan lukea bpm value
+  //Display most probable bpm value
   if(bpm.length > 0) {
-    console.log('saatiin tempo');
-    console.log(bpm[0].tempo);
-  } else {
-    console.log('bpm array on tyhjä');
+    console.log('Tempo', bpm[0].tempo);
   }
 
   frequencyDataArray.forEach((value, index) => {

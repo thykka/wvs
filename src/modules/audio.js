@@ -12,14 +12,13 @@ export async function initAudio({ fftSize = 128 } = {}) {
   const audio = {
     stream, audioContext, source, analyser, bufferLength,
     timeDataArray, frequencyDataArray,
-    bpm: 0
+    bpm: []
   };
   source.connect(analyser);
 
   const realtimeAnalyzerNode = await createRealTimeBpmProcessor(audioContext);
   realtimeAnalyzerNode.port.onmessage = (event) => {
-    console.log(event.data.result);
-    audio.bpm = event.data.result.bpm; //miksei tartu
+    audio.bpm = event.data.result.bpm;
   };
   source.connect(realtimeAnalyzerNode);
 
