@@ -11,10 +11,11 @@ const init = async (canvas) => {
 
   const params = new URLSearchParams(location.search);
   const songUrl = params.get('mp3');
-  const useMic = params.get('mic');
+  const useMic = params.has('mic');
+  console.log(useMic);
   const player = useMic ? null : createAudioPlayer({ src: songUrl ?? demoSong });
   return {
-    audio: await initAudio({ player })
+    audio: await initAudio({ player, fftSize: 512 })
   };
 };
 
