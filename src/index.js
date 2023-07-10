@@ -19,20 +19,32 @@ const update = async (state) => {
 const draw = (state) => {
   const { canvas, ctx, audio } = state;
   const { width, height } = canvas;
-  const { frequencyDataArray } = audio;
+  const { frequencyDataArray, bpm } = audio;
 
-  ctx.clearRect(0, 0, width, height);
+  ctx.fillStyle = '#00002020';
+  ctx.fillRect(0, 0, width, height);
 
   const bars = frequencyDataArray.length;
   const barWidth = width / bars;
   const barHeight = height;
 
+  ctx.fillStyle = 'rgba(200, 200, 255, 0.8)';
+
+  //Display most probable bpm value
+  if(bpm.length > 0) {
+    console.log('Tempo', bpm[0]);
+  }
+
   frequencyDataArray.forEach((value, index) => {
     const w = barWidth;
     const x = index * w;
-    const h = value / bars * barHeight;
-    const y = barHeight - h;
-    ctx.fillRect(x, y, w, h);
+    const h = 0.2 * value / bars * barHeight;
+    const y = barHeight - 0.8*h;
+    let crossRatio = 0.55;
+    ctx.fillRect(crossRatio * x, y-0.2*h, w, 0.5*h);
+    ctx.fillRect(bars * w - crossRatio * x, y-0.2*h, w, 0.5*h);
+
+    //ctx.fillRect(x, h-y, w, 0.5*h);
   });
 };
 
