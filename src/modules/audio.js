@@ -18,9 +18,22 @@ export async function initAudio({ fftSize = 128 } = {}) {
 
   const realtimeAnalyzerNode = await createRealTimeBpmProcessor(audioContext);
   realtimeAnalyzerNode.port.onmessage = (event) => {
-    audio.bpm = event.data.result.bpm;
+    //console.log(event.data);
+    if(event.data.message.startsWith('BPM')){
+      audio.bpm = event.data.result.bpm;
+    }
   };
   source.connect(realtimeAnalyzerNode);
+
+  // Enable the continuous feature
+  realtimeAnalyzerNode.port.postMessage({
+    message: 'ASYNC_CONFIGURATION',
+    parameters: {
+      continuousAnalysis: true,
+      stabilizationTime: 10_000,
+    }
+  });
+
 
   return audio;
 };

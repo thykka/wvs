@@ -32,7 +32,7 @@ const draw = (state) => {
 
   //Display most probable bpm value
   if(bpm.length > 0) {
-    console.log('Tempo', bpm[0].tempo);
+    console.log('Tempo', bpm[0]);
   }
 
   frequencyDataArray.forEach((value, index) => {
